@@ -1,4 +1,4 @@
-package com.example.demo.member;
+package com.example.demo.web.dto;
 
 import com.example.demo.domain.member.Member;
 import jakarta.validation.constraints.Email;

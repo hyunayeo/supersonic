@@ -1,7 +1,8 @@
-package com.example.demo.member;
+package com.example.demo.service;
 
 import com.example.demo.domain.member.Member;
 import com.example.demo.domain.member.MemberRepository;
+import com.example.demo.web.dto.MemberCreateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
