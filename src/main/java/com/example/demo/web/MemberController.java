@@ -8,13 +8,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@Reque
 public class MemberController {
     private final MemberService memberService;
     @PostMapping("/api/signup")
     public Long signup(@Valid @RequestBody MemberCreateRequestDto requestDto){
         return memberService.create(requestDto);
     }
-
-    @GetMapping()
 }
