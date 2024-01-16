@@ -13,7 +13,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final MemberRepository repository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        repository.findBymemberemail(username).orElseThrow(()->new IllegalArgumentException());
+        repository.findByEmail(username).orElseThrow(()->new IllegalArgumentException());
         return null;
     }
 }

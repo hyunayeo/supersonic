@@ -13,10 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import javax.swing.*;
 
 @Configuration
 @EnableWebSecurity
@@ -24,6 +21,7 @@ import javax.swing.*;
 public class SecurityConfig {
     private final JwtDecodeFilter jwtDecodeFilter;
     private final UserDetailsServiceImpl userDetailsService;
+
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
@@ -38,16 +36,17 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                .requestMatchers(new AntPathRequestMatcher("/api/login")).permitAll().anyRequest().authenticated())
-                .sessionManagement((sessionManagement)-> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                        .requestMatchers(new AntPathRequestMatcher("/**")).permitAll().anyRequest().authenticated())
+                .sessionManagement((sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationManager(authenticationManager)
                 .addFilterBefore(jwtDecodeFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterAt(jwtLoginFilter, UsernamePasswordAuthenticationFilter.class)
         ;
         return http.build();
     }
+
     @Bean
-    PasswordEncoder passwordEncoder(){
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
